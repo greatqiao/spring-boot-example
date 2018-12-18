@@ -1,0 +1,20 @@
+server:
+  port: 8081
+  context-path: /girl-consumer
+
+  thymeleaf:
+    enabled: true
+    mode: HTML5
+    encoding: utf-8
+    content-type: text/html
+    #开发时关闭缓存,不然没法看到实时页面
+    cache: false
+
+#dubbo 消费者 配置，目前没有IDE提示
+spring:
+  dubbo:
+    application:
+      name: girl-consumer
+    registry:
+      address: zookeeper://127.0.0.1:2181
+    scan: com.qiaoqin.girlcomsumer.controller

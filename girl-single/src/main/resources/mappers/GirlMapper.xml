@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.qiaoqin.girlsingle.dao.GirlMapper">
+
+    <resultMap id="GirlResultMap" type="com.qiaoqin.girlsingle.domain.Girl">
+        <id property="id" column="id" />
+        <result property="age" column="age" />
+        <result property="cupSize" column="cup_size" />
+        <association property="name" javaType="Name">
+            <id property="id" column="nameid"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+
+    <sql id="sf">
+        a.id,a.age,a.cup_size
+    </sql>
+
+    <select id="findById" resultMap="GirlResultMap">
+        select
+        <include refid="sf"/>
+        from girl a where a.id = #{id}
+    </select>
+
+    <select id="findNameById" resultMap="GirlResultMap">
+        select
+        <include refid="sf"/>
+        ,b.id nameid,b.name from girl a,girl_name b where a.id = b.id and a.id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="GirlResultMap">
+        SELECT
+        <include refid="sf"/>
+        from girl a
+    </select>
+
+
+</mapper>
